@@ -1,6 +1,8 @@
 pipeline {
   agent any 
-    NEW_VERSION = '1.0.3'
+	environment {
+           NEW_VERSION = '1.0.3'
+	}
     stages {
 	   stage('build') {
 	      when {
