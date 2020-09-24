@@ -2,6 +2,11 @@ pipeline {
   agent any 
     stages {
 	   stage('build') {
+	      when {
+		     expression {
+			    BRANCH_NAME == 'master' 
+				}
+			}	
 	      steps {
 		    echo "Building the application....."
 		  }
@@ -22,4 +27,4 @@ pipeline {
 		   }
 		}
     }
-}
+}	
