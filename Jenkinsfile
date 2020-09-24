@@ -32,10 +32,14 @@ pipeline {
 		      echo "Deploying the application....."
 			  echo "Deploying the application ${NEW_VERSION}"
 			   //echo "Deploying with credentials ${SERVER_CREDENTIALS}"
-			   withCredentials([usernamePassword(credentialsId: 'server-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PWD')])  {
-					 sh "sshpass -p ${PWD} ssh -o StrictHostKeyChecking=no ${USERNAME}@192.168.115.244 echo Dollar"
-				   echo "${USERNAME}"
-				   }
+			   //withCredentials([usernamePassword(credentialsId: 'server-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PWD')])  {
+					// sh "sshpass -p ${PWD} ssh -o StrictHostKeyChecking=no ${USERNAME}@192.168.115.244 echo Dollar"
+				   //echo "${USERNAME}"
+				 //  }
+			   
+			   sshagent(['dev-server']) {
+				   sh "ssh -o StrictHostKeyChecking=no root@192.168.115.245 echo Dollar "
+			   }
 		   }
 		}
     }
