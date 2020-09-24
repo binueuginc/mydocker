@@ -2,7 +2,7 @@ pipeline {
   agent any 
 	environment {
            NEW_VERSION = '1.0.3'
-	   SERVER_CREDENTIALS = credentials('server-credentials')
+	   //SERVER_CREDENTIALS = credentials('server-credentials')
 	}
     stages {
 	   stage('build') {
@@ -31,7 +31,12 @@ pipeline {
 		   steps{
 		      echo "Deploying the application....."
 			  echo "Deploying the application ${NEW_VERSION}"
-			   echo "Deploying with credentials ${SERVER_CREDENTIALS}"
+			   //echo "Deploying with credentials ${SERVER_CREDENTIALS}"
+			   withCredentials([
+				   usernamePassword(credentials: 'server-credentials', usernameVariable: USER, passwordVariable: PWD)
+				   ]) {
+					   sh "sshpass ${PWD} ssh -o StrictHostKeyChecking=no ${USER}@192.168.115.244"
+				   }
 		   }
 		}
     }
