@@ -1,5 +1,6 @@
 pipeline {
   agent any 
+    NEW_VERSION = '1.0.3'
     stages {
 	   stage('build') {
 	      when {
@@ -9,21 +10,24 @@ pipeline {
 			}	
 	      steps {
 		    echo "Building the application....."
+			echo "Building the application version ${NEW_VERSION}" 
 		  }
 		}
 		stage('test'){
 		   when {
 		      expression {
-			     BRANCH_NAME == 'dev'
+			     BRANCH_NAME == 'master' || BRANCH_NAME == 'dev'
 				 }
 		   }
 		   steps{
 		      echo "Testing the application...."
+			  echo "Testing new application ${NEW_VERSION}"
 		   }
 		}
 		stage('deploy'){
 		   steps{
 		      echo "Deploying the application....."
+			  echo "Deploying the application ${NEW_VERSION}"
 		   }
 		}
     }
