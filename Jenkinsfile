@@ -33,10 +33,10 @@ pipeline {
 			  echo "Deploying the application ${NEW_VERSION}"
 			   //echo "Deploying with credentials ${SERVER_CREDENTIALS}"
 			   withCredentials([
-				   usernamePassword(credentialsId: 'server-credentials', usernameVariable: USER, passwordVariable: PWD)
+				   usernamePassword(credentialsId: 'server-credentials', usernameVariable: MAN, passwordVariable: PWD)
 				   ]) {
 					   //sh "sshpass ${PWD} ssh -o StrictHostKeyChecking=no ${USER}@192.168.115.244"
-				   echo "${USER}"
+				   echo "${MAN}"
 				   }
 		   }
 		}
