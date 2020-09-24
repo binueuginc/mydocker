@@ -13,7 +13,7 @@ pipeline {
 			}	
 	      steps {
 		    echo "Building the application....."
-			echo "Building the application version ${VERSION}" 
+			
 		  }
 		}
 		stage('test'){
@@ -24,13 +24,13 @@ pipeline {
 		   }
 		   steps{
 		      echo "Testing the application...."
-			  echo "Testing new application ${VERSION}"
+			  
 		   }
 		}
 		stage('deploy'){
 		   steps{
 		      echo "Deploying the application....."
-			  echo "Deploying the application ${VERSION}"
+			 
              }
 		}
      }		
