@@ -1,10 +1,10 @@
 pipeline {
-  agent any 
-	environment {
-           NEW_VERSION = '1.0.3'
-	   //SERVER_CREDENTIALS = credentials('server-credentials')
-	}
-    stages {
+   agent any
+     parameters {
+	    choice (name: 'VERSION', choices['1.0.1', '1.2.0', '1.3.0'], description: 'Deploymeny of selected version')
+		booleanParam(name: 'executeTest', defaultValue: true, description: '')
+		}
+		    stages {
 	   stage('build') {
 	      when {
 		     expression {
@@ -13,34 +13,25 @@ pipeline {
 			}	
 	      steps {
 		    echo "Building the application....."
-			echo "Building the application version ${NEW_VERSION}" 
+			echo "Building the application version ${VERSION}" 
 		  }
 		}
 		stage('test'){
 		   when {
 		      expression {
-			     BRANCH_NAME == 'master' || BRANCH_NAME == 'dev'
+			     params.executeTest == true 
 				 }
 		   }
 		   steps{
 		      echo "Testing the application...."
-			  echo "Testing new application ${NEW_VERSION}"
+			  echo "Testing new application ${VERSION}"
 		   }
 		}
 		stage('deploy'){
 		   steps{
 		      echo "Deploying the application....."
-			  echo "Deploying the application ${NEW_VERSION}"
-			   //echo "Deploying with credentials ${SERVER_CREDENTIALS}"
-			   //withCredentials([usernamePassword(credentialsId: 'server-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PWD')])  {
-					// sh "sshpass -p ${PWD} ssh -o StrictHostKeyChecking=no ${USERNAME}@192.168.115.244 echo Dollar"
-				   //echo "${USERNAME}"
-				 //  }
-			   
-			   sshagent(['dev-server']) {
-				   sh "ssh -o StrictHostKeyChecking=no root@192.168.115.245 echo Dollar "
-			   }
-		   }
+			  echo "Deploying the application ${VERSION}"
+             }
 		}
-    }
-}	
+     }		
+}
