@@ -1,4 +1,12 @@
-def buildApp(){
+   def buildApp(){
+   echo "Building application......"
+   echo "BUILD VERSION IS ${params.VERSION}"
+   }
+   def testApp(){
+   echo "Building application......"
+   echo "BUILD VERSION IS ${params.VERSION}"
+   }
+   def deployApp(){
    echo "Building application......"
    echo "BUILD VERSION IS ${params.VERSION}"
    }
