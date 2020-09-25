@@ -1,0 +1,5 @@
+def buildApp(){
+   echo "Building application......"
+   echo "BUILD VERSION IS ${params.VERSION}"
+   }
+return this
