@@ -1,13 +1,27 @@
-   def buildApp(){
-   echo "Building application......"
+   def scmCheckOut(){
+   git(credentialsId: 'git-creds', url: 'https://github.com/binueuginc/HelloWorld',branch: "${params.BRANCH}" )
    echo "BUILD VERSION IS ${params.VERSION}"
    }
-   def testApp(){
+   def dockerBuild(){
+   sh "docker build -t binueuginc/sample-myapp:${params.VERSION} ."
+   echo "BUILD VERSION IS ${params.VERSION}"
+   }
+  def testApp(){
    echo "Testing application......"
    echo "BUILD VERSION IS ${params.VERSION}"
    }
+   def dockerPush(){
+   withCredentials([string(credentialsId: 'docker-pwd', variable: 'dockerHubPwd')]) {
+       sh "docker -u binueuginc -p ${dockerHubPwd}"
+      }
+   sh "docker push binueuginc/sample-myapp:${params.VERSION}"
+   echo "BUILD VERSION IS ${params.VERSION}"
+   }
    def deployApp(){
-   echo "Deploying application......"
+   #def dockerRun = "docker run -p 8080:8080 my-app binueuginc/sample-myapp:${params.VERSION} "  
+	 sshagent(['dev-server']){
+	   sh "ssh -o StrictHostKeyChecking=no root@192.168.115.245 ${params.dockerRun}"
+	   }
    echo "BUILD VERSION IS ${params.VERSION}"
    }
 return this
