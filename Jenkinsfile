@@ -8,6 +8,7 @@ pipeline {
 	        choice (name: 'BRANCH', choices: ['master', 'prod', 'dev', 'sanity'], description: 'Deployment Git Branch  selected')
 	        booleanParam(name: 'executeDockerPush', defaultValue: false, description: '')
 	        booleanParam(name: 'executeDeploy', defaultValue: false, description: '')
+	        booleanParam(name: 'executeAwsEcsDeploy', defaultValue: false, description: '')
 		}
          stages {
 	    stage('init'){
@@ -64,6 +65,18 @@ pipeline {
 		   steps{
 			   script {
 		               gv.dockerDeployApp()
+			   }
+             }
+		}
+		stage('awsEcsDeploy'){
+		   when {
+		      expression {
+			      params.executeAwsEcsDeploy == true 
+				 }
+		    }
+		   steps{
+			   script {
+		               gv.dockerEcsDeployApp()
 			   }
              }
 		}
