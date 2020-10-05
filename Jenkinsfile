@@ -24,7 +24,7 @@ pipeline {
 			}	
 	      steps {
 		      script {
-			      gv.buildApp()
+			      gv.dockerBuild()
 		      }
 		
 		  }
@@ -36,19 +36,28 @@ pipeline {
 				 }
 		   }
 		   steps{
-		      echo "Testing the application...."
+		      gv.testApp()
 			  
 		   }
 		}
-		stage('deploy'){
+		 stage('dockerPush'){
 		   when {
 		      expression {
 			      params.executeDeploy == true && BRANCH_NAME == "${params.BRANCH}"
 				 }
 		    }
 		   steps{
-		      echo "Deploying the application....."
-			  echo "Deploying the application ${VERSION}"
+		      gv.dockerPush()
+             }
+		}
+		stage('dockerDeploy'){
+		   when {
+		      expression {
+			      params.executeDeploy == true && BRANCH_NAME == "${params.BRANCH}"
+				 }
+		    }
+		   steps{
+		      gv.dockerDeployApp()
              }
 		}
      }		
