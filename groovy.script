@@ -25,4 +25,8 @@ def dockerBuild(){
    echo "dockerEcsDeploy ......"
    echo "BUILD VERSION ${params.VERSION} is Deploying AWS ES"
    }
+  def dockerCleanup(){
+   echo "docker Clean Up  ......"
+   sh "docker images  | awk '{print $1 ":" $2}' | xargs docker rmi -f "
+   }
 return this
