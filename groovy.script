@@ -13,7 +13,7 @@ def dockerBuild(){
    sh "docker push binueuginc/sample-myapp:${params.VERSION}"
    echo "BUILD VERSION IS ${params.VERSION}"
    }
-   def deployApp(){
+   def dockerDeployApp(){
    #def dockerRun = "docker run -p 8080:8080 my-app binueuginc/sample-myapp:${params.VERSION} "  
 	 sshagent(['dev-server']){
 	   sh "ssh -o StrictHostKeyChecking=no root@192.168.115.245 ${params.dockerRun}"
