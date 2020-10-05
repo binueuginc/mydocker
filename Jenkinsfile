@@ -38,9 +38,10 @@ pipeline {
 				 }
 		   }
 		   steps{
-		      gv.testApp()
-			  
-		   }
+			   script {
+		               gv.testApp()
+			 }
+		     }
 		}
 		 stage('dockerPush'){
 		   when {
@@ -49,8 +50,10 @@ pipeline {
 				 }
 		    }
 		   steps{
-		      gv.dockerPush()
-             }
+			   script {
+		               gv.dockerPush()
+			   }
+                   }
 		}
 		stage('dockerDeploy'){
 		   when {
