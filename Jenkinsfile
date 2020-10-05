@@ -2,8 +2,9 @@ def gv
 pipeline {
    agent any
      parameters {
-	    choice (name: 'VERSION', choices: ['1.0.1', '1.2.0', '1.3.0'], description: 'Deploymeny of selected version')
+	    choice (name: 'VERSION', choices: ['1.0.1', '1.2.0', '1.3.0'], description: 'Deployment of selected version')
 		booleanParam(name: 'executeTest', defaultValue: true, description: '')
+	        choice (name: 'BRANCH', choices: ['master', 'prod', 'dev', 'sanity'], description: 'Deployment Git Branch  selected')
 		}
          stages {
 	    stage('init'){
@@ -17,7 +18,7 @@ pipeline {
 	   stage('build') {
 	      when {
 		     expression {
-			    BRANCH_NAME == 'master' 
+			     BRANCH_NAME == "${params.BRANCH}" 
 				}
 			}	
 	      steps {
