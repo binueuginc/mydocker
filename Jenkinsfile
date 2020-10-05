@@ -7,7 +7,7 @@ pipeline {
 		booleanParam(name: 'executeTest', defaultValue: true, description: '')
 	        choice (name: 'BRANCH', choices: ['master', 'prod', 'dev', 'sanity'], description: 'Deployment Git Branch  selected')
 	        booleanParam(name: 'executeDockerPush', defaultValue: false, description: '')
-	        booleanParam(name: 'executeDeploy', defaultValue: false, description: '')
+	        booleanParam(name: 'executeTestDeploy', defaultValue: false, description: '')
 	        booleanParam(name: 'executeAwsEcsDeploy', defaultValue: false, description: '')
 	        booleanParam(name: 'executeCleanUp', defaultValue: false, description: '')
 	        booleanParam(name: 'executeDockerClean', defaultValue: true, description: '')
@@ -58,10 +58,10 @@ pipeline {
 			   }
                    }
 		}
-		stage('dockerDeploy'){
+		stage('dockerTestDeploy'){
 		   when {
 		      expression {
-			      params.executeDeploy == true && BRANCH_NAME == "${params.BRANCH}"
+			      params.executeTestDeploy == true && BRANCH_NAME == "${params.BRANCH}"
 				 }
 		    }
 		   steps{
