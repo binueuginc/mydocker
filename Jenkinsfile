@@ -6,7 +6,6 @@ pipeline {
 		booleanParam(name: 'executeTest', defaultValue: true, description: '')
 	        choice (name: 'BRANCH', choices: ['master', 'prod', 'dev', 'sanity'], description: 'Deployment Git Branch  selected')
 	        booleanParam(name: 'executeDeploy', defaultValue: false, description: '')
-	        choice (name: 'TEAM', choices: ['NOC', 'R&D'], description: 'Deployment Git Branch  selected')
 	        booleanParam(name: 'executeDockerPush', defaultValue: false, description: '')
 		}
          stages {
