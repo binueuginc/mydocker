@@ -83,11 +83,7 @@ pipeline {
 		}
      }	
     post {
-	    when {
-		 expression {
-	             params.executeCleanUp == true 
-		 }
-	    }	    
+   
         cleanup {
             /* clean up our workspace */
             deleteDir()
