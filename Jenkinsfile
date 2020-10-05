@@ -62,7 +62,9 @@ pipeline {
 				 }
 		    }
 		   steps{
-		      gv.dockerDeployApp()
+			   script {
+		               gv.dockerDeployApp()
+			   }
              }
 		}
      }		
