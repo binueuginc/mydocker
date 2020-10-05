@@ -14,7 +14,7 @@ pipeline {
 		}
 	environment {
 		DOCKERRUN = "docker run -p 8080:8080 my-app binueuginc/sample-myapp:${params.VERSION} " 
-		DOCKERCLEAN = "docker images  | awk '{print $1 /":/" $2}' | xargs docker rmi -f"
+		DOCKERCLEAN = "docker images  | awk '{print \$1 \":\" \$2}' | xargs docker rmi -f"
 	}
          stages {
 	    stage('init'){
