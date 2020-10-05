@@ -10,6 +10,7 @@ pipeline {
 	        booleanParam(name: 'executeDeploy', defaultValue: false, description: '')
 	        booleanParam(name: 'executeAwsEcsDeploy', defaultValue: false, description: '')
 	        booleanParam(name: 'executeCleanUp', defaultValue: false, description: '')
+	        booleanParam(name: 'executeDockerClean', defaultValue: true, description: '')
 		}
          stages {
 	    stage('init'){
@@ -81,6 +82,18 @@ pipeline {
 			   }
              }
 		}
+	    stage('dockerImagesCleanUp'){
+		when {
+		   expression {
+			 params.executeDockerClean == true 
+			     }
+		     }
+		   steps{
+		      script {
+		          gv.dockerCleanup()
+			   }
+                   }
+	    }
      }	
     post {
    
