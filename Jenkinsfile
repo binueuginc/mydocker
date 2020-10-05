@@ -43,7 +43,7 @@ pipeline {
 		 stage('dockerPush'){
 		   when {
 		      expression {
-			      params.executeDeploy == true && BRANCH_NAME == "${params.BRANCH}"
+			      params.executeDockerPush == true 
 				 }
 		    }
 		   steps{
