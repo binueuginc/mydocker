@@ -21,4 +21,8 @@ def dockerBuild(){
 	   }
    echo "BUILD VERSION IS ${params.VERSION}"
    }
+  def dockerEcsDeployApp(){
+   echo "dockerEcsDeploy ......"
+   echo "BUILD VERSION ${params.VERSION} is Deploying AWS ES"
+   }
 return this
