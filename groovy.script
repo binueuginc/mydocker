@@ -27,6 +27,6 @@ def dockerBuild(){
    }
   def dockerCleanup(){
    echo "docker Clean Up  ......"
-   sh 'docker images  | awk /'{print $1 ":" $2}/' | xargs docker rmi -f'
+   sh 'docker images  | awk \'{print $1 ":" $2}\' | xargs docker rmi -f'
    }
 return this
