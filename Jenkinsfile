@@ -5,6 +5,7 @@ pipeline {
 	    choice (name: 'VERSION', choices: ['1.0.1', '1.2.0', '1.3.0'], description: 'Deployment of selected version')
 		booleanParam(name: 'executeTest', defaultValue: true, description: '')
 	        choice (name: 'BRANCH', choices: ['master', 'prod', 'dev', 'sanity'], description: 'Deployment Git Branch  selected')
+	        booleanParam(name: 'executeDeploy', defaultValue: false, description: '')
 		}
          stages {
 	    stage('init'){
@@ -40,9 +41,14 @@ pipeline {
 		   }
 		}
 		stage('deploy'){
+		   when {
+		      expression {
+			      params.executeDeploy == true && BRANCH_NAME == "${params.BRANCH}"
+				 }
+		    }
 		   steps{
 		      echo "Deploying the application....."
-			 
+			  echo "Deploying the application ${VERSION}"
              }
 		}
      }		
