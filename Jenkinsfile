@@ -9,6 +9,7 @@ pipeline {
 	        booleanParam(name: 'executeDockerPush', defaultValue: false, description: '')
 	        booleanParam(name: 'executeDeploy', defaultValue: false, description: '')
 	        booleanParam(name: 'executeAwsEcsDeploy', defaultValue: false, description: '')
+	        booleanParam(name: 'executeCleanUp', defaultValue: false, description: '')
 		}
          stages {
 	    stage('init'){
@@ -82,6 +83,11 @@ pipeline {
 		}
      }	
     post {
+	    when {
+		 expression {
+	             params.executeCleanUp == true 
+		 }
+	    }	    
         cleanup {
             /* clean up our workspace */
             deleteDir()
