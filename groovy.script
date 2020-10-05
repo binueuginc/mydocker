@@ -1,7 +1,4 @@
-def scmCheckOut(){
-   git(credentialsId: 'git-creds', url: 'https://github.com/binueuginc/HelloWorld',branch: "${params.BRANCH}" )
-   echo "BUILD VERSION IS ${params.VERSION}"
-   }
+
 def dockerBuild(){
    sh "docker build -t binueuginc/sample-myapp:${params.VERSION} ."
    echo "BUILD VERSION IS ${params.VERSION}"
